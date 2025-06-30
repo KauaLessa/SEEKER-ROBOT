@@ -27,7 +27,24 @@ void moveRobotFoward(struct Motor motorA, struct Motor motorB, uint8_t speed) {
   foward(motorB, speed);
 }
 
+void moveRobotBackward(struct Motor motorA, struct Motor motorB, uint8_t speed) {
+  backward(motorA, speed); 
+  backward(motorB, speed); 
+}
+
 void stopRobot(struct Motor motorA, struct Motor motorB) {
   stop(motorA);
   stop(motorB);
+}
+
+void retreatRobot(
+  struct Motor motorA, 
+  struct Motor motorB, 
+  uint8_t speed, 
+  unsigned long retreat_time 
+) {
+  backward(motorA, speed); 
+  backward(motorB, speed); 
+  delay(retreat_time);
+  stopRobot(motorA, motorB); 
 }

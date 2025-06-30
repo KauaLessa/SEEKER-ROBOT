@@ -15,6 +15,8 @@ const uint8_t H_OUT_D_PIN = 7;
 const uint8_t HC_TRIG_PIN = 4;
 const uint8_t HC_ECHO_PIN = 2;
 
-const uint8_t LED_PIN = 6;
+const uint8_t SEEK_LED = 6; // On when object is found
+const uint8_t RETREAT_LED = 5; // On when robot is iin RETREAT state
+const uint8_t BUTTON_PIN = 9; // When pressed robot activates RETREAT state
 
 #endif
