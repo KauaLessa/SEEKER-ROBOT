@@ -131,7 +131,7 @@ void setup() {
   pinMode(HC_ECHO_PIN, INPUT);
   pinMode(SEEK_LED, OUTPUT);
   pinMode(RETREAT_LED, OUTPUT); 
-  Serial.begin(9600); 
+  // Serial.begin(9600); 
 }
 
 bool detectBorder() {
@@ -149,7 +149,7 @@ void loop() {
 
   switch (current_state) {
     case SEEK: {
-      Serial.println("seek"); 
+      // Serial.println("seek"); 
 
       bool object_found = seek(motorA, motorB, eyes, trashold, range);
       bool border = detectBorder(); 
@@ -166,7 +166,7 @@ void loop() {
       break;
     }
     case FOWARD: {
-      Serial.println("foward"); 
+      // Serial.println("foward"); 
 
       if (detectBorder()) {
         current_state = RETREAT; 
@@ -179,7 +179,7 @@ void loop() {
       break; 
     }
     case RETREAT: {
-      Serial.print("retreat");
+      // Serial.print("retreat");
       digitalWrite(RETREAT_LED, HIGH); 
       retreatRobot(motorA, motorB, 450); 
       digitalWrite(RETREAT_LED, LOW); 
@@ -187,7 +187,7 @@ void loop() {
       break; 
     }
     default: {
-      Serial.println("stop");
+      // Serial.println("stop");
       current_state = STOP;
       stopRobot(motorA, motorB);
       break;  
