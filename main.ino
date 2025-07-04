@@ -140,7 +140,7 @@ void setup() {
 
 /* returns true when detects white border */
 bool detectBorder() {
-  return (digitalRead(IR_A) == LOW); 
+  return (digitalRead(IR_A) == HIGH); 
 }
 
 State current_state = SEEK; 
