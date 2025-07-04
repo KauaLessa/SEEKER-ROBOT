@@ -135,7 +135,7 @@ void setup() {
 }
 
 bool detectBorder() {
-  return (digitalRead(IR_A) == LOW || digitalRead(IR_B) == HIGH); 
+  return (digitalRead(IR_A) == LOW || digitalRead(IR_B) == LOW); 
 }
 
 State current_state = SEEK; 
