@@ -17,7 +17,7 @@ const uint8_t IR_B = 8;
 
 const uint8_t SEEK_LED = 6; // On when object is found
 const uint8_t RETREAT_LED = 5; // On when robot is in RETREAT state
-// DEBUG const uint8_t BUTTON_PIN = 9; // When pressed robot activates RETREAT state
+// DEBUG const uint8_t BUTTON_PIN = 3; // When pressed robot activates RETREAT state
 
 enum State {SEEK, FOWARD, STOP, RETREAT};
 
@@ -116,10 +116,13 @@ void retreatRobot(
   struct Motor motorB,  
   unsigned long retreat_time 
 ) {
+  stopRobot(motorA, motorB); 
+  delay(370); 
   backward(motorA); 
   backward(motorB); 
   delay(retreat_time);
-  stopRobot(motorA, motorB); 
+  stopRobot(motorA, motorB);
+  delay(370); 
 }
 
 void setup() {
@@ -130,22 +133,24 @@ void setup() {
   pinMode(HC_TRIG_PIN, OUTPUT);
   pinMode(HC_ECHO_PIN, INPUT);
   pinMode(SEEK_LED, OUTPUT);
-  pinMode(RETREAT_LED, OUTPUT); 
+  pinMode(RETREAT_LED, OUTPUT);
+  delay(300); 
   // Serial.begin(9600); 
 }
 
+/* returns true when detects white border */
 bool detectBorder() {
-  return (digitalRead(IR_A) == LOW || digitalRead(IR_B) == LOW); 
+  return (digitalRead(IR_A) == LOW); 
 }
 
 State current_state = SEEK; 
 
 void loop() {
-  const unsigned int range = 50; // The robot will detect objects within this range
-  const unsigned int trashold = 10; 
-  struct Motor motorA = createMotor(H_OUT_A_PIN, H_OUT_B_PIN);
-  struct Motor motorB = createMotor(H_OUT_C_PIN, H_OUT_D_PIN);
-  struct Ultrasnd eyes = createUltrasndSensor(HC_TRIG_PIN, HC_ECHO_PIN);
+  static const unsigned int range = 50; // The robot will detect objects within this range
+  static const unsigned int trashold = 10; 
+  static struct Motor motorA = createMotor(H_OUT_A_PIN, H_OUT_B_PIN);
+  static struct Motor motorB = createMotor(H_OUT_C_PIN, H_OUT_D_PIN);
+  static struct Ultrasnd eyes = createUltrasndSensor(HC_TRIG_PIN, HC_ECHO_PIN);
 
   switch (current_state) {
     case SEEK: {
@@ -181,7 +186,7 @@ void loop() {
     case RETREAT: {
       // Serial.print("retreat");
       digitalWrite(RETREAT_LED, HIGH); 
-      retreatRobot(motorA, motorB, 450); 
+      retreatRobot(motorA, motorB, 700); 
       digitalWrite(RETREAT_LED, LOW); 
       current_state = SEEK;
       break; 
